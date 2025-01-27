@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recordlar</title>
+</head>
+<body>
+<h1>Recordlar sahifasi</h1>
+<hr>
+{% for record in recordlar %}
+  <p>{{ forloop.counter }}.
+      <a href="{{ record.id }}">{{ record.talaba }} - "{{ record.kitob }}"</a>
+  </p>
+{% endfor %}
+</body>
+</html>

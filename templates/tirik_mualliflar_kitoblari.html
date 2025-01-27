@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tirik mualliflar kitoblari</title>
+</head>
+<body>
+<h1>Tirik mualliflar kitoblari</h1>
+<hr>
+{% for tirik_mualliflar_kitobi in tirik_mualliflar_kitoblari %}
+  <p>
+    {{ forloop.counter }}.
+    {{ tirik_mualliflar_kitobi.nom }} , muallifi: {{ tirik_mualliflar_kitobi.muallif }}
+  </p>
+{% endfor %}
+</body>
+</html>

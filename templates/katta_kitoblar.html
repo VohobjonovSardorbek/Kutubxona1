@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Katta sahifali kitobalar</title>
+</head>
+<body>
+<h1>Katta sahifali kitoblar top uchtasi</h1>
+<hr>
+{% for katta_kitob in katta_kitoblar %}
+    <p>
+        {{ forloop.counter }}.
+        {{ katta_kitob.nom }}
+    </p>
+{% endfor %}
+</body>
+</html>

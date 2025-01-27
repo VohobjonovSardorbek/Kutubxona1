@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kitob</title>
+</head>
+<body>
+<h1> {{ kitob.nom }} kitobi haqida ma'lumotlar </h1>
+<hr>
+{% if kitob.annotatsiya != '' %}
+  <p>Annotatsiyasi: {{ kitob.annotatsiya }}</p>
+{% endif %}
+<p>Janri: {{ kitob.janr }}</p>
+<p>Sahifasi: {{ kitob.sahifa }}</p>
+<p>Muallifi: {{ kitob.muallif }}</p>
+</body>
+</html>

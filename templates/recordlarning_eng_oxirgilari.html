@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Eng oxirgi recordlar</title>
+</head>
+<body>
+<h1>Eng oxirgi uchta recordlar</h1>
+<hr>
+{% for recordlarning_eng_oxirgisi in recordlarning_eng_oxirgilari %}
+    <p>{{ forloop.counter }}.
+    {{ recordlarning_eng_oxirgisi.talaba }} "{{ recordlarning_eng_oxirgisi.kitob }}" kitobini {{ recordlarning_eng_oxirgisi.kutubxonachi }} ismli kutubxonachidan {{ recordlarning_eng_oxirgisi.olingan_sana }} sanada olgan
+    </p>
+{% endfor %}
+</body>
+</html>

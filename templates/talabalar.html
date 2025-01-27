@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Talabalar</title>
+</head>
+<body>
+  <h1>Talabalar ro'yxati</h1>
+  <a href="/">Bosh sahifaga qaytish</a>
+  <hr>
+
+  {% for talaba in talabalar %}
+    <p>{{ forloop.counter }}.
+        <a href="{{ talaba.id }}/">{{ talaba.ism }}</a>
+    </p>
+  {% endfor %}
+</body>
+</html>

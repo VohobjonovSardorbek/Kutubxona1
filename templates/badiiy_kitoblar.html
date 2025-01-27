@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Badiiy kitoblar</title>
+</head>
+<body>
+<h1>Badiiy kitoblar</h1>
+<hr>
+{% for badiiy_kitob in badiiy_kitoblar %}
+    <p>
+        {{ forloop.counter }}.
+        {{ badiiy_kitob.nom }} , muallifi: {{ badiiy_kitob.muallif }}
+    </p>
+{% endfor %}
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recordlar detallari</title>
+</head>
+<body>
+<h1>Recordning ma'lumotlari</h1>
+<hr>
+<p>Talaba: {{ record_detail.talaba }}</p>
+<p>Kitob: {{ record_detail.kitob }}</p>
+<p>Kutubxonachi: {{ record_detail.kutubxonachi }}</p>
+<p>Olingan sana: {{ record_detail.olingan_sana }}</p>
+{% if record_detail.qaytarilgan_sana != None %}
+  <p>Qaytarilgan sana: {{ record_detail.qaytarilgan_sana }}</p>
+  <p>Qaytardi: Ha</p>
+{% else %}
+  <p>Qaytardi: Yo'q</p>
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Eng kitobi ko'p muallif</title>
+</head>
+<body>
+<h1>Eng kitobi ko'p mualliflarning to'p uchtasi</h1>
+<hr>
+{% for kitobi_kop_muallif in kitobi_kop_mualliflar %}
+    <p>{{ forloop.counter }}.
+        {{ kitobi_kop_muallif.ism }}
+    </p>
+{% endfor %}
+</body>
+</html>

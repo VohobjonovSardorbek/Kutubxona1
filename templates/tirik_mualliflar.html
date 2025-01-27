@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tirik_muallliflar</title>
+</head>
+<body>
+<h1> Tirik mualliflar </h1>
+<hr>
+{% for tirik_muallif in tirik_mualliflar %}
+  {% if tirik_muallif.tirik != False %}
+    <p>{{ forloop.counter }}.
+        {{ tirik_muallif.ism }}
+    </p>
+  {% endif %}
+{% endfor %}
+</body>
+</html>

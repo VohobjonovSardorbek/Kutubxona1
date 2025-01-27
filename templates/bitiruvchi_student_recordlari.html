@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bitiruvchi studentlar recordlari</title>
+</head>
+<body>
+<h1>Bitiruvchi studentlar recordlari</h1>
+<hr>
+{% for bitiruvchi_student_record in bitiruvchi_student_recordlari %}
+  <p>
+    {{ forloop.counter }}
+    {{ bitiruvchi_student_record.talaba }} - {{ bitiruvchi_student_record.kitob }}, kursi: {{ bitiruvchi_student_record.talaba.kurs }}
+  </p>
+{% endfor %}
+</body>
+</html>

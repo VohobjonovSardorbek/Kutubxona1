@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h1>Yoshi katta mualliflar top uchtasi</h1>
+<hr>
+{% for yoshi_katta_muallif in yoshi_katta_mualliflar %}
+  <p>
+    {{ forloop.counter }}
+    {{ yoshi_katta_muallif.ism }}
+  </p>
+{% endfor %}
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kitobi kam mualliflar</title>
+</head>
+<body>
+<h1>Kitoblari soni kam mualliflarning kitoblari</h1>
+<hr>
+{% for kitobi_kam_muallif in kitobi_kam_mualliflar %}
+  <p>
+    {{ forloop.counter }}.
+    Kitob nomi: "{{ kitobi_kam_muallif.nom }}", muallifi: {{ kitobi_kam_muallif.muallif }}, kitoblari soni: {{ kitobi_kam_muallif.muallif.kitob_soni }}
+  </p>
+{% endfor %}
+</body>
+</html>
