@@ -4,23 +4,141 @@
     <meta charset="UTF-8">
     <title>Bosh sahifa</title>
 </head>
+<style>
+    /* Umumiy sozlamalar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+/* Bosh sahifa sarlavhasi */
+h1 {
+    text-align: center;
+    font-size: 36px;
+    color: #2c3e50;
+    padding: 20px 0;
+    background-color: #f39c12;
+    margin-bottom: 20px;
+<!--    border-radius: 10px;-->
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Container (har bir bo'limni joylashtiruvchi) */
+.container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 30px;
+    padding: 20px;
+}
+
+/* Har bir box (bo'lim) */
+.box1, .box2, .box3 {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    flex: 1;
+    min-width: 280px; /* Kichik ekranlarda ham to'g'ri ko'rinish */
+}
+
+/* Boxlar uchun havola (linklar) uslubi */
+a {
+    display: block;
+    padding: 15px;
+    margin-bottom: 15px;
+    color: #2c3e50;
+    text-decoration: none;
+    background-color: #ecf0f1;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+/* Hover effektlari */
+a:hover {
+    background-color: #3498db;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Boxlar ichida sarlavhalar */
+.box1 h2, .box2 h2, .box3 h2 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 10px;
+}
+
+/* Faqatgina divlarning ustiga hover effekti */
+.box1:hover, .box2:hover, .box3:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+hr {
+    border: 1px solid #ddd;
+    margin: 30px 0;
+}
+
+/* Saytning kichik ekranlarga moslashuvi */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .box1, .box2, .box3 {
+        min-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+}
+
+</style>
 <body>
 <h1>Bosh sahifaga xush kelibsiz</h1>
 <hr>
-<a href="/talabalar/">Talabalar</a>
-<a href="/mualliflar/">Mualliflar</a>
-<a href="/kitoblar/">Kitoblar</a>
-<a href="">Kutubxonachilar</a>
-<a href="/recordlar/">Recordlar</a>
-<a href="/tirik_mualliflar/">Tirik mualliflar</a>
-<a href="/katta_kitoblar/">Katta kitoblar</a>
-<a href="/kitobi_kop_mualliflar/">Eng kitobi ko'p mualliflar</a>
-<a href="/kitobi_kop_mualliflar/">Eng kitobi ko'p mualliflar</a>
-<a href="/recordlarning_eng_oxirgilari/">Eng oxirgi uchta recordlar</a>
-<a href="/tirik_mualliflar_kitoblari/">Tirik mualliflar kitoblari</a>
-<a href="/badiiy_kitoblar/">Badiiy kitoblar</a>
-<a href="/yoshi_katta_mualliflar/">Yoshi katta mualliflar</a>
-<a href="/kitobi_kam_mualliflar/">Kitoblari soni kam mualliflar</a>
-<a href="/bitiruvchi_student_recordlari/">Bitiruvchi studentlar recordlari</a>
+<div class="container">
+    <div class="box1">
+        <a href="/talabalar/">Talabalar</a>
+        <a href="/mualliflar/">Mualliflar</a>
+        <a href="/kitoblar/">Kitoblar</a>
+        <a href="/kutubxonachilar/">Kutubxonachilar</a>
+        <a href="/recordlar/">Recordlar</a>
+    </div>
+    <div class="box2">
+        <a href="/tirik_mualliflar/">Tirik mualliflar</a>
+        <a href="/katta_kitoblar/">Katta kitoblar</a>
+        <a href="/kitobi_kop_mualliflar/">Eng kitobi ko'p mualliflar</a>
+        <a href="/kitobi_kop_mualliflar/">Eng kitobi ko'p mualliflar</a>
+        <a href="/recordlarning_eng_oxirgilari/">Eng oxirgi uchta recordlar</a>
+    </div>
+    <div class="box3">
+        <a href="/tirik_mualliflar_kitoblari/">Tirik mualliflar kitoblari</a>
+        <a href="/badiiy_kitoblar/">Badiiy kitoblar</a>
+        <a href="/yoshi_katta_mualliflar/">Yoshi katta mualliflar</a>
+        <a href="/kitobi_kam_mualliflar/">Kitoblari soni kam mualliflar</a>
+        <a href="/bitiruvchi_student_recordlari/">Bitiruvchi studentlar recordlari</a>
+    </div>
+</div>
 </body>
 </html>

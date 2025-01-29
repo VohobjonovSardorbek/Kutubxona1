@@ -1,29 +1,7 @@
-"""
-URL configuration for core project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-from tkinter.font import names
-
 from django.contrib import admin
 from django.urls import path
 
-from mainApp.views import home_view, talaba_view, muallif_view, talabalar_details_view, mualliflar_details_view, \
-    kitoblar_view, kitoblar_details_view, recordlar_view, tirik_mualliflar_view, eng_katta_sahifalar_view, \
-    eng_kitobi_kop_muallif_view, recordlarning_eng_oxirgilari_view, tirik_mualliflar_kitoblari_view, \
-    badiiy_kitoblar_view, yoshi_katta_mualliflar_view, kitobi_kam_mualliflar, record_details_view, \
-    bitiruvchi_student_recordlari_view
+from mainApp.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -45,4 +23,7 @@ urlpatterns = [
     path('kitobi_kam_mualliflar/', kitobi_kam_mualliflar, name="Kitobi kam mualliflar"),
     path('recordlar/<int:record_id>', record_details_view, name="Recordlarning detallari"),
     path('bitiruvchi_student_recordlari/', bitiruvchi_student_recordlari_view, name="Bitiruvchi studentlar recordlari"),
+    path('kutubxonachilar/', kutubxonachilar_view, name="Kutubxonachilar"),
+    path("talabalar/<int:pk>/o'chirish/", talaba_delete_view),
+    path("talabalar/<int:pk>/o'chirish/tasdiqlash/", talaba_delete_tasdiqlash_view),
 ]

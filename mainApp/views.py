@@ -1,7 +1,7 @@
 from contextlib import contextmanager
 from idlelib.query import Query
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
 from django.db.models import Q
 
@@ -10,10 +10,62 @@ def home_view(request):
     return render(request, 'index.html')
 
 
+# def talaba_view(request):
+#
+#     talabalar = Talaba.objects.all()
+#
+#     search = request.GET.get('search', '')
+#     if search:
+#         talabalar = talabalar.filter(ism__contains=search)
+#
+#     kurs = request.GET.get('kurs', 'all')
+#     if kurs == "all":
+#         talabalar = talabalar
+#     else:
+#         talabalar = talabalar.filter(kurs=kurs)
+#     guruh = request.GET.get('guruh')
+#     if guruh =="all":
+#         talabalar = talabalar
+#     else:
+#         talabalar = talabalar.filter(guruh=guruh)
+#
+#     guruhlar = Talaba.objects.order_by("guruh").values_list("guruh", flat=True).distinct()
+#     kurslar = Talaba.objects.order_by("kurs").values_list("kurs", flat=True).distinct()
+#     context = {
+#         "talabalar": talabalar,
+#         "search": search,
+#         "guruhlar" : guruhlar,
+#         "kurslar" :kurslar,
+#         "kurs_query" : kurs,
+#         "guruh_query" : guruh,
+#     }
+#     return render(request, 'talabalar.html', context=context)
+
 def talaba_view(request):
     talabalar = Talaba.objects.all()
+
+    search = request.GET.get('search', '')
+    if search:
+        talabalar = talabalar.filter(ism__contains=search)
+
+    kurs = request.GET.get('kurs', 'all')
+    if kurs != "all":
+        talabalar = talabalar.filter(kurs=kurs)
+
+    guruh = request.GET.get('guruh', 'all')
+    if guruh != "all":
+        talabalar = talabalar.filter(guruh=guruh)
+
+    guruhlar = Talaba.objects.order_by("guruh").values_list("guruh", flat=True).distinct()
+    kurslar = Talaba.objects.order_by("kurs").values_list("kurs", flat=True).distinct()
+
     context = {
         "talabalar": talabalar,
+        "search": search,
+        "guruhlar": guruhlar,
+        "kurslar": kurslar,
+        "kurs_query": kurs,
+        "guruh_query": guruh,
     }
     return render(request, 'talabalar.html', context=context)
 
@@ -43,8 +95,41 @@ def mualliflar_details_view(request, muallif_id):
 
 def kitoblar_view(request):
     kitoblar = Kitob.objects.all()
+
+    search = request.GET.get('search', '')
+    if search:
+        kitoblar = kitoblar.filter(nom__contains=search)
+
+    boshlanish = request.GET.get('boshlanish', '')
+    tugash = request.GET.get('tugash', '')
+    if boshlanish:
+        if tugash:
+            kitoblar = kitoblar.filter(sahifa__gte=boshlanish, sahifa__lte=tugash)
+        else:
+            kitoblar = kitoblar.filter(sahifa__gte=boshlanish)
+    elif tugash:
+        kitoblar = kitoblar.filter(sahifa__lte=tugash)
+
+    mualliflar = Muallif.objects.order_by('ism').values_list('ism', flat=True).distinct()
+    muallif = request.GET.get('muallif', 'all')
+    if muallif != 'all':
+        kitoblar = kitoblar.filter(muallif__ism=muallif)
+
+    janrlar = Kitob.objects.order_by('janr').values_list('janr', flat=True).distinct()
+
+    janr = request.GET.get('janr', 'all')
+    if janr != 'all':
+        kitoblar = kitoblar.filter(janr=janr)
+
     context = {
-        "kitoblar" : kitoblar
+        "kitoblar" : kitoblar,
+        "search" : search,
+        "boshlanish" : boshlanish,
+        "tugash" : tugash,
+        "mualliflar" : mualliflar,
+        "muallif_" : muallif,
+        "janrlar" :janrlar,
+        "janr_" : janr,
     }
     return render(request, 'kitoblar.html', context=context)
 
@@ -132,3 +217,22 @@ def bitiruvchi_student_recordlari_view(request):
         "bitiruvchi_student_recordlari" : bitiruvchi_student_recordlari
     }
     return render(request, 'bitiruvchi_student_recordlari.html', context=context)
+
+def kutubxonachilar_view(request):
+    kutubxonachilar = Kutubxonachi.objects.all()
+    context = {
+        "kutubxonachilar" : kutubxonachilar
+    }
+    return render(request, 'kutubxonachilar.html', context=context)
+
+def talaba_delete_view(request, pk):
+    talaba = get_object_or_404(Talaba, id=pk)
+    talaba.delete()
+    return redirect('/talabalar/')
+
+def talaba_delete_tasdiqlash_view(request, pk):
+    talaba = get_object_or_404(Talaba, id=pk)
+    context = {
+        "talaba" : talaba,
+    }
+    return render(request, 'talaba_delete_tasdiqlash.html', context=context)

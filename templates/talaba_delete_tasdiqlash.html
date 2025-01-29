@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Talabalarni o'chirishni tasdiqlash</title>
+</head>
+<body>
+<p>{{ talaba.ism }}'ning ma'lumitlarini rostdan ham o'chirmoqchimisiz???</p>
+<a href="{% url 'talabalar' %}">
+    <button>Bekor qilish</button></a>
+<a href="/talabalar/{{ talaba.id }}/o'chirish/">
+    <button>Tasdiqlash</button></a>
+</body>
+</html>
