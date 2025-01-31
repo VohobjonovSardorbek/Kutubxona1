@@ -12,5 +12,8 @@
       <a href="{{ record.id }}">{{ record.talaba }} - "{{ record.kitob }}"</a>
   </p>
 {% endfor %}
+<a href="{% url 'record_qoshish' %}">
+    <button>Yangi record qoshish</button>
+</a>
 </body>
 </html>

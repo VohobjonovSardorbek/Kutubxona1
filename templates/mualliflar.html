@@ -8,6 +8,28 @@
 <h1>Mualliflar sahifasi</h1>
 <a href="/">Bosh sahifaga qaytish</a>
 <hr>
+<div>
+    <form method="get">
+<!--        {% csrf_token %}-->
+        <h2>Yangi muallif qo'shish</h2>
+        <br>
+        <label>Ism:</label>
+        <input type="text" name="ism" required>
+        <label>Davlat:</label>
+        <input type="text" name="davlat" required>
+        <br><br>
+        <label>Kitoblari soni:</label>
+        <input type="number" name="kitob_soni" required>
+        <label>Tug'ilgan sana:</label>
+        <input type="text" name="t_sana" required>
+        <br><br>
+
+        <label>Jins:</label>
+
+
+    </form>
+</div>
+<hr>
 {% for muallif in mualliflar %}
 <p>{{ forloop.counter }}.
     <a href="{{ muallif.id }}"> {{ muallif.ism }} </a>

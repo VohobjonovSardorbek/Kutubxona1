@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kutubxonachi qoshish</title>
+</head>
+<body>
+<h1>Yangi kutubxonachilar qo'shish</h1>
+<hr>
+<form method="post">
+    {% csrf_token %}
+    <label>Ism:</label>
+    <input type="text" name="ism" required>
+    <br><br>
+    <label>Ish vaqti:</label>
+    <select name="ish_vaqti">
+        {% for kutubxonachi in kutubxonachilar %}
+            <option value="{{ kutubxonachi.id }}">{{ kutubxonachi.ish_vaqti }}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+    <button>Ma'lumotlarni kiritish</button>
+</form>
+</body>
+</html>

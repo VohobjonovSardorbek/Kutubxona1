@@ -1,3 +1,5 @@
+from tkinter.font import names
+
 from django.contrib import admin
 from django.urls import path
 
@@ -23,7 +25,10 @@ urlpatterns = [
     path('kitobi_kam_mualliflar/', kitobi_kam_mualliflar, name="Kitobi kam mualliflar"),
     path('recordlar/<int:record_id>', record_details_view, name="Recordlarning detallari"),
     path('bitiruvchi_student_recordlari/', bitiruvchi_student_recordlari_view, name="Bitiruvchi studentlar recordlari"),
-    path('kutubxonachilar/', kutubxonachilar_view, name="Kutubxonachilar"),
+    path('kutubxonachilar/', kutubxonachilar_view, name="kutubxonachilar"),
     path("talabalar/<int:pk>/o'chirish/", talaba_delete_view),
     path("talabalar/<int:pk>/o'chirish/tasdiqlash/", talaba_delete_tasdiqlash_view),
+    path('kitoblar/kitob_qoshish/', kitob_qoshish_view, name='kitob_qoshish'),
+    path("recordlar/record_qoshish/", record_qoshish_view, name='record_qoshish'),
+    path('kutubxonachilar/kutubxonachi_qoshish/', kutubxonachi_qoshish_view, name="kutubxonachi_qoshish"),
 ]
