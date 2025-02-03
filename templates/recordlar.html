@@ -10,6 +10,9 @@
 {% for record in recordlar %}
   <p>{{ forloop.counter }}.
       <a href="{{ record.id }}">{{ record.talaba }} - "{{ record.kitob }}"</a>
+      <a href="/recordlar/{{ record.id }}/update/">
+          <button>Tahrirlash</button>
+      </a>
   </p>
 {% endfor %}
 <a href="{% url 'record_qoshish' %}">

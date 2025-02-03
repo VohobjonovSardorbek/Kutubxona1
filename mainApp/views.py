@@ -48,6 +48,22 @@ def talaba_view(request):
     }
     return render(request, 'talabalar.html', context=context)
 
+def talaba_update_view(request, pk):
+    if request.method == 'POST':
+        talaba = Talaba.objects.filter(id=pk)
+        talaba.update(
+            ism=request.POST.get('ism'),
+            kurs=request.POST.get('kurs'),
+            guruh=request.POST.get('guruh'),
+            yosh=request.POST.get('yosh'),
+            kitob_soni=request.POST.get('kitob_soni')
+        )
+        return redirect('talabalar')
+    talaba = Talaba.objects.get(id=pk)
+    context = {
+        "talaba" : talaba
+    }
+    return render(request, 'talaba_update.html', context=context)
 
 def muallif_view(request):
     mualliflar = Muallif.objects.all()
@@ -71,6 +87,56 @@ def mualliflar_details_view(request, muallif_id):
         'muallif': muallif
     }
     return render(request, 'muallif_details.html', context=context)
+
+def mualliflar_qoshish_view(request):
+    if request.method == 'POST':
+        if request.POST.get('jins_id') == '1':
+            jins = "Erkak"
+        else:
+            jins = "Ayol"
+        Muallif.objects.create(
+            ism=request.POST.get('ism'),
+            davlat=request.POST.get('davlat'),
+            kitob_soni=request.POST.get('kitob_soni'),
+            t_sana=request.POST.get('t_sana'),
+            jins=jins
+        )
+    return redirect('/mualliflar/')
+
+
+def mualliflar_update_view(request, pk):
+    if request.method == 'POST':
+        muallif = Muallif.objects.filter(id=pk)
+        muallif.update(
+            ism=request.POST.get('ism'),
+            davlat=request.POST.get('davlat'),
+            kitob_soni=request.POST.get('kitob_soni'),
+            t_sana=request.POST.get('t_sana'),
+            jins=request.POST.get('jins')
+        )
+        return redirect('/mualliflar/')
+    muallif = Muallif.objects.get(id=pk)
+    if muallif.jins == "Erkak":
+        jinsi = "Ayol"
+    else:
+        jinsi = "Erkak"
+    context = {
+        "muallif" : muallif,
+        "jinsi" : jinsi
+    }
+    return render(request, 'muallif_tahrirlash.html', context=context)
+
+def mualliflar_delete_tasdiqlash_view(request, pk):
+    muallif = Muallif.objects.get(id=pk)
+    context = {
+        "muallif" : muallif
+    }
+    return render(request, "muallif_o'chirish_tasdiqlash.html", context=context)
+
+def mualliflar_delete_view(request, pk):
+    muallif = Muallif.objects.get(id=pk)
+    muallif.delete()
+    return redirect('/mualliflar/')
 
 def kitoblar_view(request):
     kitoblar = Kitob.objects.all()
@@ -111,6 +177,24 @@ def kitoblar_view(request):
         "janr_" : janr,
     }
     return render(request, 'kitoblar.html', context=context)
+
+def kitoblar_update_view(request, pk):
+    if request.method == 'POST':
+        Kitob.objects.filter(id=pk).update(
+            nom=request.POST.get('nom'),
+            janr=request.POST.get('janr'),
+            sahifa=request.POST.get('sahifa'),
+            muallif=Muallif.objects.get(id=request.POST.get('muallif_id')),
+            annotatsiya=request.POST.get('annotatsiya')
+        )
+        return redirect('kitoblar')
+    kitob = get_object_or_404(Kitob, id=pk)
+    mualliflar = Muallif.objects.exclude(id=kitob.muallif.id)
+    context = {
+        "kitob" : kitob,
+        "mualliflar" : mualliflar
+    }
+    return render(request, 'kitob_update.html', context=context)
 
 def kitoblar_details_view(request, kitob_id):
     kitob = Kitob.objects.get(id=kitob_id)
@@ -189,6 +273,23 @@ def record_details_view(request, record_id):
         "record_detail" : record_detail
     }
     return render(request, 'record_details.html', context=context)
+
+def record_update_view(request, pk):
+    if request.method == 'POST':
+        record=Record.objects.filter(id=pk)
+        record.update(
+            talaba=Talaba.objects.get(ism=request.POST.get('talaba')),
+            kitob=Kitob.objects.get(nom=request.POST.get('kitob')),
+            kutubxonachi=Kutubxonachi.objects.filter(ism=request.POST.get('kutubxonachi')),
+            qaytarilgan_sana=request.POST.get('qayatrilgan_sana'),
+            qaytardi=request.POST.get('qaytardi') == 'on'
+        )
+        return redirect('recordlar')
+    record = get_object_or_404(Record, id=pk)
+    context = {
+        "record" : record
+    }
+    return render(request, 'record_update.html', context=context)
 
 def bitiruvchi_student_recordlari_view(request):
     bitiruvchi_student_recordlari = Record.objects.filter(talaba__kurs=4)
@@ -269,6 +370,35 @@ def kutubxonachi_qoshish_view(request):
         "kutubxonachilar" : kutubxonachilar
     }
     return render(request, 'kutubxonachi_qoshish.html', context=context)
+
+def kutubxonachi_delete_tasdiqlash_view(request, pk):
+    kutubxonachi = Kutubxonachi.objects.get(id=pk)
+    context = {
+        "kutubxonachi" : kutubxonachi
+    }
+    return render(request, "kutubxonachi_o'chirish_tasdiqlash.html", context=context)
+
+def kutubxonachi_delete_view(request, pk):
+    kutubxonachi = Kutubxonachi.objects.get(id=pk)
+    kutubxonachi.delete()
+    return redirect('/kutubxonachilar/')
+
+def kutubxonachi_tahrirlash_view(request, pk):
+    kutubxonachi = Kutubxonachi.objects.get(id=pk)
+    if kutubxonachi.ish_vaqti == '08:00 - 13:00':
+        ish_vaqtlari = "13:00 - 18:00"
+    elif kutubxonachi.ish_vaqti != '08:00 - 13:00':
+        ish_vaqtlari = "08:00 - 13:00"
+    print(ish_vaqtlari)
+    print(kutubxonachi.ish_vaqti)
+
+    context = {
+        "kutubxonachi" : kutubxonachi,
+        "ish_vaqt" : ish_vaqtlari
+    }
+    return render(request, 'kutubxonachi_tahrirlash.html', context=context)
+
+
 
 
 

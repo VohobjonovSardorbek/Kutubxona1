@@ -11,11 +11,19 @@
   <p>
     {{ forloop.counter }}.
     {{ kutubxonachi.ism }} , ish vaqti: {{ kutubxonachi.ish_vaqti }}
+      <a href="/kutubxonachilar/{{ kutubxonachi.id }}/o'chirish/tasdiqlash/">
+          <button>O'chirish</button>
+      </a>
+      <a href="/kutubxonachilar/{{ kutubxonachi.id }}/tahrirlash/">
+          <button>Tahrirlash</button>
+      </a>
   </p>
 {% endfor %}
 
 <a href="{% url 'kutubxonachi_qoshish' %}">
     <button>Yangi kutubxonachi qo'shish</button>
 </a>
+<br><br>
+<a href="/">Bosh sahifaga qaytish</a>
 </body>
 </html>

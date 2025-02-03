@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Record | tahrirlash</title>
+</head>
+<body>
+<h2>Record tahrirlash</h2>
+<hr>
+<form method="post">
+  {% csrf_token %}
+  <label>Talaba:</label>
+  <input type="text" name="talaba" value="{{ record.talaba }}" readonly>
+  <br><br>
+  <label>Kitob:</label>
+  <input type="text" name="kitob" value="{{ record.kitob }}" readonly>
+  <br><br>
+  <label>Kutubxonachi:</label>
+  <input type="text" name="kutubxonachi" value="{{ record.kutubxonachi }}" readonly>
+  <br><br>
+  <label>Qaytarilgan sana:</label>
+  <input type="date" name="qaytarilgan_sana"  required>
+  <br><br>
+  <label>Qaytardi:</label>
+  <input type="checkbox" name="qaytardi" {% if record.qaytardi == True %} checked {% endif %}>
+  <br><br>
+  <button>Tasdiqlash</button>
+</form>
+</body>
+</html>

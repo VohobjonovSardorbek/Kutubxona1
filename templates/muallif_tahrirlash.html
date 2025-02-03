@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Muallif | tahrirlash</title>
+</head>
+<body>
+<h1>{{ muallif.ism }} ma'lumotlarini tahrirlash</h1>
+<hr>
+<form method="post">
+    {% csrf_token %}
+    <label>Ism:</label>
+    <input type="text" name="ism" value="{{ muallif.ism }}" required>
+    <br><br>
+    <label>Davlat:</label>
+    <input type="text" name="davlat" value="{{ muallif.davlat }}" required>
+    <br><br>
+    <label>Kitoblari soni:</label>
+    <input type="number" name="kitob_soni" value="{{ muallif.kitob_soni }}" required>
+    <br><br>
+    <label>Tug'ilgan sana:</label>
+    <input type="date" name="t_sana" value="{{ muallif.t_sana }}" required>
+    <br><br>
+    <label>Jins:</label>
+    <select name="jins">
+        <option value="{{ muallif.jins }}">{{ muallif.jins }}</option>
+        <option value="{{ jinsi }}">{{ jinsi }}</option>
+    </select>
+    <br><br>
+    <a href="/muallif/">
+        <button>Tasdiqlash</button>
+    </a>
+</form>
+</body>
+</html>

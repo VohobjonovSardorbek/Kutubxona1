@@ -9,8 +9,8 @@
 <a href="/">Bosh sahifaga qaytish</a>
 <hr>
 <div>
-    <form method="get">
-<!--        {% csrf_token %}-->
+    <form method="post">
+        {% csrf_token %}
         <h2>Yangi muallif qo'shish</h2>
         <br>
         <label>Ism:</label>
@@ -21,18 +21,28 @@
         <label>Kitoblari soni:</label>
         <input type="number" name="kitob_soni" required>
         <label>Tug'ilgan sana:</label>
-        <input type="text" name="t_sana" required>
+        <input type="date" name="t_sana" required>
         <br><br>
-
         <label>Jins:</label>
-
-
+        <select name="jins_id">
+            <option value="1">Erkak</option>
+            <option value="2">Ayol</option>
+        </select>
+        <a href="/mualliflar/qo'shish/">
+            <button>Ma'lumotlarni kiritish</button>
+        </a>
     </form>
 </div>
 <hr>
 {% for muallif in mualliflar %}
 <p>{{ forloop.counter }}.
     <a href="{{ muallif.id }}"> {{ muallif.ism }} </a>
+    <a href="/mualliflar/{{ muallif.id }}/o'chirish/tasdiqlash/">
+        <button>O'chirish</button>
+    </a>
+    <a href="/mualliflar/{{ muallif.id }}/tahrirlash/">
+        <button>Tahrirlash</button>
+    </a>
 </p>
 {% endfor %}
 </body>

@@ -194,6 +194,9 @@
       {% for kitob in kitoblar %}
         <li class="kitob-item">
             <span>{{ forloop.counter }}. <a href="{{ kitob.id }}">{{ kitob.nom }}</a></span>
+            <a href="/kitoblar/{{ kitob.id }}/tahrirlash/">
+                <button>Tahrirlash</button>
+            </a>
         </li>
       {% endfor %}
     </ul>
