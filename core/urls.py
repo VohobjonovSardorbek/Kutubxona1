@@ -12,7 +12,7 @@ urlpatterns = [
     path('mualliflar/', muallif_view, name='muallif'),
     path('talabalar/<int:talaba_id>/', talabalar_details_view),
     path('mualliflar/<int:muallif_id>/', mualliflar_details_view),
-    path('mualliflar/qoshish/', mualliflar_qoshish_view),
+    path('muallif/qoshish/', mualliflar_qoshish_view),
     path('mualliflar/<int:pk>/o\'chirish/tasdiqlash/', mualliflar_delete_tasdiqlash_view),
     path('mualliflar/<int:pk>/o\'chirish/', mualliflar_delete_view),
     path('mualliflar/<int:pk>/tahrirlash/', mualliflar_update_view),

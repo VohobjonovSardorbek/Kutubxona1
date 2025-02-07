@@ -9,21 +9,7 @@
 <hr>
 <form method="post">
   {% csrf_token %}
-  <label>Ism:</label>
-  <input type="text" name="ism" value="{{ talaba.ism }}" required>
-  <br><br>
-  <label>Kurs:</label>
-  <input type="number" name="kurs" value="{{ talaba.kurs }}" required>
-  <br><br>
-  <label>Guruh:</label>
-  <input type="text" name="guruh" value="{{ talaba.guruh }}" required>
-  <br><br>
-  <label>Yosh:</label>
-  <input type="number" name="yosh" value="{{ talaba.yosh }}" required>
-  <br><br>
-  <label>Kitob soni:</label>
-  <input type="number" name="kitob_soni" value="{{ talaba.kitob_soni }}" required>
-  <br><br>
+  {{ form.as_p }}
   <button>Tasdiqlash</button>
 </form>
 </body>

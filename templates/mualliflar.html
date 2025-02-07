@@ -8,31 +8,11 @@
 <h1>Mualliflar sahifasi</h1>
 <a href="/">Bosh sahifaga qaytish</a>
 <hr>
-<div>
-    <form method="post">
-        {% csrf_token %}
-        <h2>Yangi muallif qo'shish</h2>
-        <br>
-        <label>Ism:</label>
-        <input type="text" name="ism" required>
-        <label>Davlat:</label>
-        <input type="text" name="davlat" required>
-        <br><br>
-        <label>Kitoblari soni:</label>
-        <input type="number" name="kitob_soni" required>
-        <label>Tug'ilgan sana:</label>
-        <input type="date" name="t_sana" required>
-        <br><br>
-        <label>Jins:</label>
-        <select name="jins_id">
-            <option value="1">Erkak</option>
-            <option value="2">Ayol</option>
-        </select>
-        <a href="/mualliflar/qo'shish/">
-            <button>Ma'lumotlarni kiritish</button>
-        </a>
-    </form>
-</div>
+<a href="/muallif/qoshish/">
+    <button>
+        Yangi muallif qo'shish
+    </button>
+</a>
 <hr>
 {% for muallif in mualliflar %}
 <p>{{ forloop.counter }}.

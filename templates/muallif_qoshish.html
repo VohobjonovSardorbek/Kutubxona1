@@ -2,17 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Muallif | tahrirlash</title>
+    <title>Muallif qo'shish</title>
 </head>
 <body>
-<h1>{{ muallif.ism }} ma'lumotlarini tahrirlash</h1>
+<h1>Yangi muallif qo'shish</h1>
 <hr>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <a>
-        <button>Tasdiqlash</button>
-    </a>
+    <button>Ma'lumotlarni kiritish</button>
 </form>
 </body>
 </html>

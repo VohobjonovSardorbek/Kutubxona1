@@ -4,6 +4,7 @@ from idlelib.query import Query
 from django.shortcuts import render, get_object_or_404, redirect
 from urllib3 import request
 
+from .forms import TalabaForm, MuallifForm, RecordForm
 from .models import *
 from django.db.models import Q
 
@@ -12,14 +13,11 @@ def home_view(request):
     return render(request, 'index.html')
 
 def talaba_view(request):
+    form = TalabaForm
     if request.method == 'POST':
-        Talaba.objects.create(
-            ism=request.POST.get('ism'),
-            kurs=request.POST.get('kurs'),
-            guruh=request.POST.get('guruh'),
-            yosh=request.POST.get('yosh'),
-            kitob_soni=request.POST.get('kitob_soni')
-        )
+        talaba_form = TalabaForm(request.POST)
+        if talaba_form.is_valid():
+            talaba_form.save()
         return redirect('talabalar')
     talabalar = Talaba.objects.all()
 
@@ -45,23 +43,25 @@ def talaba_view(request):
         "kurslar": kurslar,
         "kurs_query": kurs,
         "guruh_query": guruh,
+        "form" : form
     }
     return render(request, 'talabalar.html', context=context)
 
 def talaba_update_view(request, pk):
+    form = TalabaForm
+    talaba = get_object_or_404(Talaba, id=pk)
     if request.method == 'POST':
-        talaba = Talaba.objects.filter(id=pk)
-        talaba.update(
-            ism=request.POST.get('ism'),
-            kurs=request.POST.get('kurs'),
-            guruh=request.POST.get('guruh'),
-            yosh=request.POST.get('yosh'),
-            kitob_soni=request.POST.get('kitob_soni')
-        )
+        talaba_form = TalabaForm(request.POST, instance=talaba)
+        if talaba_form.is_valid():
+            talaba_form.save()
         return redirect('talabalar')
+    else:
+        form = TalabaForm(instance=talaba)
+
     talaba = Talaba.objects.get(id=pk)
     context = {
-        "talaba" : talaba
+        "talaba" : talaba,
+        "form" : form
     }
     return render(request, 'talaba_update.html', context=context)
 
@@ -89,32 +89,27 @@ def mualliflar_details_view(request, muallif_id):
     return render(request, 'muallif_details.html', context=context)
 
 def mualliflar_qoshish_view(request):
+    form = MuallifForm()
     if request.method == 'POST':
-        if request.POST.get('jins_id') == '1':
-            jins = "Erkak"
-        else:
-            jins = "Ayol"
-        Muallif.objects.create(
-            ism=request.POST.get('ism'),
-            davlat=request.POST.get('davlat'),
-            kitob_soni=request.POST.get('kitob_soni'),
-            t_sana=request.POST.get('t_sana'),
-            jins=jins
-        )
-    return redirect('/mualliflar/')
-
+        muallif_model = MuallifForm(request.POST)
+        if muallif_model.is_valid():
+            muallif_model.save()
+        return redirect('/mualliflar/')
+    context = {
+        "form" : form
+    }
+    return render(request, 'muallif_qoshish.html', context=context)
 
 def mualliflar_update_view(request, pk):
+    form = MuallifForm()
+    muallif = get_object_or_404(Muallif, id=pk)
     if request.method == 'POST':
-        muallif = Muallif.objects.filter(id=pk)
-        muallif.update(
-            ism=request.POST.get('ism'),
-            davlat=request.POST.get('davlat'),
-            kitob_soni=request.POST.get('kitob_soni'),
-            t_sana=request.POST.get('t_sana'),
-            jins=request.POST.get('jins')
-        )
+        muallif_model = MuallifForm(request.POST, instance= muallif)
+        if muallif_model.is_valid():
+            muallif_model.save()
         return redirect('/mualliflar/')
+    else:
+        form = MuallifForm(instance= muallif)
     muallif = Muallif.objects.get(id=pk)
     if muallif.jins == "Erkak":
         jinsi = "Ayol"
@@ -122,6 +117,7 @@ def mualliflar_update_view(request, pk):
         jinsi = "Erkak"
     context = {
         "muallif" : muallif,
+        "form" : form,
         "jinsi" : jinsi
     }
     return render(request, 'muallif_tahrirlash.html', context=context)
@@ -333,19 +329,11 @@ def kitob_qoshish_view(request):
     return render(request, 'kitob_qoshish.html', context=context)
 
 def record_qoshish_view(request):
+    form = RecordForm()
     if request.method == 'POST':
-        if request.POST.get('qaytarilgan_sana') == '':
-            qaytarilgan_sana = None
-        else:
-            qaytarilgan_sana = request.POST.get('qaytarilga_sana')
-
-        Record.objects.create(
-            talaba=Talaba.objects.get(id=request.POST.get('talaba_id')),
-            kitob=Kitob.objects.get(id=request.POST.get('kitob_id')),
-            kutubxonachi=Kutubxonachi.objects.get(id=request.POST.get('kutubxonachi_id')),
-            qaytarilgan_sana=qaytarilgan_sana,
-            qaytardi=request.POST.get('qaytardi') == 'on'
-        )
+        record_model = RecordForm(request.POST)
+        if record_model.is_valid():
+            record_model.save()
         return redirect('recordlar')
 
     talabalar = Talaba.objects.all()
@@ -355,6 +343,7 @@ def record_qoshish_view(request):
         "talabalar" : talabalar,
         "kutubxonachilar" : kutubxonachilar,
         "kitoblar" : kitoblar,
+        "form" : form
     }
     return render(request, 'record_qoshish.html', context=context)
 
@@ -384,6 +373,13 @@ def kutubxonachi_delete_view(request, pk):
     return redirect('/kutubxonachilar/')
 
 def kutubxonachi_tahrirlash_view(request, pk):
+    if request.method == 'POST':
+        kutubxonachi = Kutubxonachi.objects.get(id=pk)
+        kutubxonachi.update(
+            ism=request.POST.get('ism'),
+            ish_vaqti=request.POST.get('ish_vaqti')
+        )
+        return redirect('kutubxonachilar')
     kutubxonachi = Kutubxonachi.objects.get(id=pk)
     if kutubxonachi.ish_vaqti == '08:00 - 13:00':
         ish_vaqtlari = "13:00 - 18:00"
