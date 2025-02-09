@@ -4,7 +4,7 @@ from idlelib.query import Query
 from django.shortcuts import render, get_object_or_404, redirect
 from urllib3 import request
 
-from .forms import TalabaForm, MuallifForm, RecordForm
+from .forms import TalabaForm, MuallifForm, RecordForm, Kitobform
 from .models import *
 from django.db.models import Q
 
@@ -175,20 +175,21 @@ def kitoblar_view(request):
     return render(request, 'kitoblar.html', context=context)
 
 def kitoblar_update_view(request, pk):
+    form = Kitobform()
+    kitob = get_object_or_404(Kitob, id= pk)
     if request.method == 'POST':
-        Kitob.objects.filter(id=pk).update(
-            nom=request.POST.get('nom'),
-            janr=request.POST.get('janr'),
-            sahifa=request.POST.get('sahifa'),
-            muallif=Muallif.objects.get(id=request.POST.get('muallif_id')),
-            annotatsiya=request.POST.get('annotatsiya')
-        )
+        kitob_model = Kitobform(request.POST, instance=kitob)
+        if kitob_model.is_valid():
+            kitob_model.save()
         return redirect('kitoblar')
+    else:
+        form = Kitobform(instance=kitob)
     kitob = get_object_or_404(Kitob, id=pk)
     mualliflar = Muallif.objects.exclude(id=kitob.muallif.id)
     context = {
         "kitob" : kitob,
-        "mualliflar" : mualliflar
+        "mualliflar" : mualliflar,
+        "form" : form
     }
     return render(request, 'kitob_update.html', context=context)
 
@@ -314,17 +315,16 @@ def talaba_delete_tasdiqlash_view(request, pk):
     return render(request, 'talaba_delete_tasdiqlash.html', context=context)
 
 def kitob_qoshish_view(request):
+    form = Kitobform()
     if request.method == 'POST':
-        Kitob.objects.create(
-            nom=request.POST.get('nom'),
-            janr=request.POST.get('janr'),
-            sahifa=request.POST.get('sahifa'),
-            muallif=Muallif.objects.get(id=request.POST.get('muallif_id'))
-        )
+        kitob_model = Kitobform(request.POST)
+        if kitob_model.is_valid():
+            kitob_model.save()
         return redirect('kitoblar')
     mualliflar = Muallif.objects.all()
     context = {
         "mualliflar" : mualliflar,
+        "form" : form
     }
     return render(request, 'kitob_qoshish.html', context=context)
 

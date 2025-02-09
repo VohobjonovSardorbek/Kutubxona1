@@ -9,25 +9,7 @@
 <hr>
 <form method="post">
     {% csrf_token %}
-    <label>Nom:</label>
-    <input type="text" name="nom" required>
-    <br><br>
-    <label>Janr:</label>
-    <input type="text" name="janr" required>
-    <br><br>
-    <label>Sahifa:</label>
-    <input type="number" name="sahifa"required>
-    <br><br>
-    <label>Muallif:</label>
-    <select name="muallif_id">
-        {% for muallif in mualliflar %}
-            <option value="{{ muallif.id }}">{{ muallif.ism }}</option>
-        {% endfor %}
-    </select>
-    <br><br>
-    <label>Annotatiya:</label>
-    <textarea name="annotatsiya"></textarea>
-    <br><br>
+    {{ form.as_p }}
     <button>Ma'lumotlarni kiritish</button>
 </form>
 </body>

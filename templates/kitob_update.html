@@ -9,26 +9,7 @@
 <hr>
 <form method="post">
     {% csrf_token %}
-    <label>Nom:</label>
-    <input type="text" name="nom" value="{{ kitob.nom }}" required>
-    <br><br>
-    <label>Janr:</label>
-    <input type="text" name="janr" value="{{ kitob.janr }}" required>
-    <br><br>
-    <label>Sahifa:</label>
-    <input type="number" name="sahifa" value="{{ kitob.sahifa }}" required>
-    <br><br>
-    <label>Muallif:</label>
-    <select name="muallif_id">
-      <option value="{{ kitob.muallif.id }}">{{ kitob.muallif.ism }}</option>
-        {% for muallif in mualliflar %}
-            <option value="{{ muallif.id }}">{{ muallif.ism }}</option>
-        {% endfor %}
-    </select>
-    <br><br>
-    <label>Annotatiya:</label>
-    <input name="annotatsiya" value="{{ kitob.annotatsiya }}">
-    <br><br>
+    {{ form.as_p }}
     <button>Tasdiqlash</button>
 </form>
 </body>

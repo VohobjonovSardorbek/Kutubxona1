@@ -20,3 +20,9 @@ class RecordForm(forms.ModelForm):
     class Meta:
         model = Record
         fields = '__all__'
+
+
+class Kitobform(forms.ModelForm):
+    class Meta:
+        model = Kitob
+        fields = '__all__'
